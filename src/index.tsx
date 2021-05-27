@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack'
-import {useNavigation, NavigationContainer, NavigationHelpersContext} from '@react-navigation/native'
+import {useNavigation, NavigationContainer, NavigationHelpersContext, DrawerActions,} from '@react-navigation/native'
+import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 const styles = StyleSheet.create({
@@ -13,15 +14,13 @@ const styles = StyleSheet.create({
 });
 
 function Main() {
-  const {navigate} = useNavigation();
+  const {dispatch} = useNavigation();
   return (
     <View style={styles.container}>
       <Text>Main</Text>
       <TouchableOpacity
-        onPress={() => {
-        navigate('Sub');
-        }}>
-        <Text>go to Sub</Text>
+        onPress={() => dispatch(DrawerActions.openDrawer())}>
+        <Text>open drawer</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity
         onPress={() => {
@@ -34,21 +33,26 @@ function Main() {
 }
 
 function Sub() {
+  const {dispatch} = useNavigation();
   return (
     <View style={styles.container}>
       <Text>Sub</Text>
+      <TouchableOpacity onPress={() => dispatch(DrawerActions.openDrawer())}>
+    <Text>open drawer</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
-function TabNavigator() {
+function DrawerNavigator() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Main" component={Main} />
-      <Tab.Screen name="Sub" component={Sub} />
-    </Tab.Navigator>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Main" component={Main} />
+      <Drawer.Screen name="Sub" component={Sub} />
+    </Drawer.Navigator>
   );
 }
 
@@ -60,21 +64,21 @@ function TabNavigator() {
 //   )
 // }
 
-const Stack = createStackNavigator();
-function StackNavigator() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen name="Sub" component={Sub} />
-      {/* <Stack.Screen name="Sub2" component={Sub2} /> */}
-    </Stack.Navigator>
-  );
-}
+// const Stack = createStackNavigator();
+// function StackNavigator() {
+//   return(
+//     <Stack.Navigator>
+//       <Stack.Screen name="Main" component={Main} />
+//       <Stack.Screen name="Sub" component={Sub} />
+//       {/* <Stack.Screen name="Sub2" component={Sub2} /> */}
+//     </Stack.Navigator>
+//   );
+// }
 
 export default function(){
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
