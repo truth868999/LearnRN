@@ -32,10 +32,9 @@ function Main() {
 }
 
 function Sub() {
-  const {dispatch} = useNavigation();
   return (
     <View style={styles.container}>
-      <Text>Sub</Text>
+      <Text>sign up or login</Text>
     </View>
   )
 }
@@ -64,40 +63,9 @@ const Stack = createStackNavigator();
 
 function StackNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen
-        name="Sub"
-        component={Sub}
-        options={({navigation, route}) => {
-          const title =
-            route.params && route.params.title ? route.params.title : '0';
-          const seed = parseInt(title, 10) % 3;
-          switch (seed) {
-            case 0:
-              console.log('goback');
-              navigation.goBack();
-              break;
-            case 1:
-              console.log('replace');
-              navigation.replace('Main');
-              break;
-            default:
-              console.log('reset');
-              const action = CommonActions.reset({
-                index: 0,
-                routes: [
-                  {
-                    name: 'Main',
-                  },
-                ],
-              });
-              navigation.dispatch(action);
-              break;
-          }
-          return {title};
-        }}
-      />
+    <Stack.Navigator mode="model">
+      <Stack.Screen name="main" component={Main} />
+      <Stack.Screen name="Sub" component={Sub} />
     </Stack.Navigator>
    );
  }
