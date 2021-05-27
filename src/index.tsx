@@ -14,20 +14,16 @@ const styles = StyleSheet.create({
 });
 
 function Main() {
-  const {dispatch} = useNavigation();
+  const {navigate} = useNavigation();
   return (
     <View style={styles.container}>
       <Text>Main</Text>
       <TouchableOpacity
-        onPress={() => dispatch(DrawerActions.openDrawer())}>
+        onPress={() => {
+          navigate('Sub')
+        }}>
         <Text>open drawer</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity
-        onPress={() => {
-        navigate('Sub2');
-        }}>
-        <Text>go to Sub2</Text>
-      </TouchableOpacity> */}
     </View>
   );
 }
@@ -37,24 +33,21 @@ function Sub() {
   return (
     <View style={styles.container}>
       <Text>Sub</Text>
-      <TouchableOpacity onPress={() => dispatch(DrawerActions.openDrawer())}>
-    <Text>open drawer</Text>
-      </TouchableOpacity>
     </View>
   )
 }
 
 // const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
-function DrawerNavigator() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Main" component={Main} />
-      <Drawer.Screen name="Sub" component={Sub} />
-    </Drawer.Navigator>
-  );
-}
+// function DrawerNavigator() {
+//   return (
+//     <Drawer.Navigator>
+//       <Drawer.Screen name="Main" component={Main} />
+//       <Drawer.Screen name="Sub" component={Sub} />
+//     </Drawer.Navigator>
+//   );
+// }
 
 // function Sub2() {
 //   return (
@@ -64,21 +57,22 @@ function DrawerNavigator() {
 //   )
 // }
 
-// const Stack = createStackNavigator();
-// function StackNavigator() {
-//   return(
-//     <Stack.Navigator>
-//       <Stack.Screen name="Main" component={Main} />
-//       <Stack.Screen name="Sub" component={Sub} />
-//       {/* <Stack.Screen name="Sub2" component={Sub2} /> */}
-//     </Stack.Navigator>
-//   );
-// }
+const Stack = createStackNavigator();
+function StackNavigator() {
+  return(
+    <Stack.Navigator screenOptions={{
+      title: 'hello',
+    }}>
+      <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen name="Sub" component={Sub} />
+    </Stack.Navigator>
+   );
+ }
 
 export default function(){
   return (
     <NavigationContainer>
-      <DrawerNavigator />
+      <StackNavigator />
     </NavigationContainer>
   );
 }
