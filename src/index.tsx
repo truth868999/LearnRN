@@ -63,7 +63,7 @@ const Stack = createStackNavigator();
 
 function StackNavigator() {
   return (
-    <Stack.Navigator mode="model">
+    <Stack.Navigator headerMode="screen">
       <Stack.Screen name="main" component={Main} />
       <Stack.Screen name="Sub" component={Sub} />
     </Stack.Navigator>
